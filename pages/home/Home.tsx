@@ -1,22 +1,38 @@
+import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import { Heading, SyncBar, Timer } from '@/components';
+import * as storage from '@/config/storage';
 
 import { HomeContainer, MainContainer } from './styles';
 
 const Home = () => {
-  const [syncedUser] = useState<string>('');
+  const [syncedUser, setSyncedUser] = useState<string>('');
 
-  const sync = async () => {
-    const { data } = await axios.get('/api/user/abc');
-    console.log(data);
-  };
+  const sync = useCallback(async () => {
+    let userCode = localStorage[storage.USER_CODE];
+
+    if (!userCode) {
+      const { data } = await axios.post('api/user/code');
+      userCode = data.code;
+
+      localStorage.setItem(storage.USER_CODE, data.code);
+    }
+
+    const { data } = await axios.get(`/api/user/${userCode}`);
+
+    if (!data.user && userCode) {
+      localStorage.removeItem(storage.USER_CODE);
+      await sync();
+    }
+
+    setSyncedUser(userCode);
+  }, []);
 
   useEffect(() => {
     sync();
-  }, []);
+  }, [sync]);
 
   return (
     <>
@@ -34,7 +50,7 @@ const Home = () => {
           <Timer />
         </MainContainer>
       </HomeContainer>
-      <SyncBar isSyncing={!syncedUser} />
+      <SyncBar isSynchronizing={!syncedUser} />
     </>
   );
 };

@@ -1,12 +1,16 @@
 import { SyncBardContainer } from './styles';
 
 type SyncBarProps = {
-  isSyncing: boolean;
+  isSynchronizing: boolean;
   // syncedAs?: string;
 };
 
-const SyncBar = ({ isSyncing }: SyncBarProps) => {
-  return <SyncBardContainer>{isSyncing && 'Syncing...'}</SyncBardContainer>;
+const SyncBar = ({ isSynchronizing }: SyncBarProps) => {
+  return (
+    <SyncBardContainer>
+      {isSynchronizing && 'Synchronizing...'}
+    </SyncBardContainer>
+  );
 };
 
 export default SyncBar;

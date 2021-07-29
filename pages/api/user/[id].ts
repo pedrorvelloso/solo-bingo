@@ -9,7 +9,7 @@ export default async function handler(
     const { id } = req.query;
     const user = await checkUser(id as string);
 
-    if (!user) res.status(404).json({ error: 'Not found' });
+    if (!user) res.json({ user: null });
     else {
       res.json({ user });
     }
