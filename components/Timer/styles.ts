@@ -1,9 +1,13 @@
 import { darken } from 'polished';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const TimerContainer = styled.div`
+type TimeContainerProps = {
+  finshed: boolean;
+};
+
+export const TimerContainer = styled.div<TimeContainerProps>`
   background-color: ${(props) => darken(0.1, props.theme.background.color)};
-  width: 40%;
+  width: ${(props) => (props.finshed ? '100%' : '40%')};
 
   display: flex;
   align-items: center;
@@ -17,6 +21,14 @@ export const TimerContainer = styled.div`
   margin-right: 14px;
 
   border-radius: 5px;
+
+  transition: all 0.2s ease-in;
+
+  ${(props) =>
+    props.finshed &&
+    css`
+      border: 1px solid ${props.theme.colors.success};
+    `}
 `;
 
 export const ControllersContainer = styled.div`

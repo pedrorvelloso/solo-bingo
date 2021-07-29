@@ -8,6 +8,7 @@ interface UseTimerData {
   start: () => void;
   stop: () => void;
   isRunning: boolean;
+  isFinished: boolean;
   startedAt?: number;
   countdown: boolean;
 }
@@ -30,6 +31,7 @@ function useTimer({ countdown: cd = 0 }: UseTimerProps): UseTimerData {
 
   const [startedAt, setStartedAt] = useState<number | undefined>();
   const [isRunning, setIsRunning] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
   const [countdown, setCountdown] = useState(() => {
     if (cd > 0) return true;
     return false;
@@ -46,6 +48,7 @@ function useTimer({ countdown: cd = 0 }: UseTimerProps): UseTimerData {
 
   const stop = useCallback(() => {
     isRunningRef.current = false;
+    setIsFinished(true);
     setIsRunning(false);
   }, []);
 
@@ -90,6 +93,7 @@ function useTimer({ countdown: cd = 0 }: UseTimerProps): UseTimerData {
     isRunning,
     startedAt,
     countdown,
+    isFinished,
   };
 }
 

@@ -10,6 +10,7 @@ const Timer = (): JSX.Element => {
     hours,
     deciseconds,
     isRunning,
+    isFinished,
     start,
     stop,
     startedAt,
@@ -18,7 +19,7 @@ const Timer = (): JSX.Element => {
 
   return (
     <ControllersContainer>
-      <TimerContainer>
+      <TimerContainer finshed={isFinished}>
         {countdown && '-'}
         {hours}:{minutes}:{seconds}.<small>{deciseconds}</small>
       </TimerContainer>
