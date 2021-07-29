@@ -2,7 +2,7 @@ import { darken } from 'polished';
 import styled from 'styled-components';
 
 export const TimerContainer = styled.div`
-  background-color: ${(props) => darken(0.33, props.theme.background.color)};
+  background-color: ${(props) => darken(0.1, props.theme.background.color)};
   width: 40%;
 
   display: flex;

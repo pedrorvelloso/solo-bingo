@@ -30,7 +30,7 @@ export const ButtonStyled = styled.button<ButtonStyledProps>`
 
   transition: all 150ms ease-in-out;
 
-  :hover {
+  :hover:enabled {
     background-color: ${(props) => props.theme.colors[props.color]};
 
     ${(props) =>
@@ -38,5 +38,10 @@ export const ButtonStyled = styled.button<ButtonStyledProps>`
       css`
         background-color: ${darken(0.41, props.theme.colors[props.color])};
       `}
+  }
+
+  :disabled {
+    cursor: not-allowed;
+    filter: grayscale(0.9);
   }
 `;
