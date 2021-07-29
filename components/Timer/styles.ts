@@ -24,6 +24,8 @@ export const TimerContainer = styled.div<TimeContainerProps>`
 
   transition: all 0.2s ease-in;
 
+  border: 1px solid ${(props) => darken(0.1, props.theme.background.color)};
+
   ${(props) =>
     props.finshed &&
     css`
