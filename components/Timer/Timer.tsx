@@ -1,44 +1,27 @@
-import { Button } from '@/components';
-import useTimer from './useTimer';
+import { TimerContainer } from './styles';
 
-import { ControllersContainer, TimerContainer } from './styles';
+type TimerProps = {
+  isFinished: boolean;
+  countdown: boolean;
+  hours: string;
+  minutes: string;
+  seconds: string;
+  deciseconds: string;
+};
 
-const Timer = (): JSX.Element => {
-  const {
-    seconds,
-    minutes,
-    hours,
-    deciseconds,
-    isRunning,
-    isFinished,
-    start,
-    stop,
-    startedAt,
-    countdown,
-  } = useTimer({ countdown: 15 });
-
+const Timer = ({
+  isFinished,
+  countdown,
+  hours,
+  minutes,
+  seconds,
+  deciseconds,
+}: TimerProps) => {
   return (
-    <ControllersContainer>
-      <TimerContainer finshed={isFinished}>
-        {countdown && '-'}
-        {hours}:{minutes}:{seconds}.<small>{deciseconds}</small>
-      </TimerContainer>
-      {!isRunning && !startedAt && (
-        <Button onClick={start} color="success">
-          Start
-        </Button>
-      )}
-      {isRunning && (
-        <>
-          <Button onClick={stop} disabled={countdown}>
-            Done
-          </Button>
-          <Button onClick={stop} color="danger" ml="14px" disabled={countdown}>
-            Forfeit
-          </Button>
-        </>
-      )}
-    </ControllersContainer>
+    <TimerContainer finshed={isFinished}>
+      {countdown && '-'}
+      {hours}:{minutes}:{seconds}.<small>{deciseconds}</small>
+    </TimerContainer>
   );
 };
 

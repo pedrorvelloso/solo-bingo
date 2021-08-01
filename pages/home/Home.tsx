@@ -2,7 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
 import axios from 'axios';
 
-import { Heading, SyncBar, Timer } from '@/components';
+import { Heading, SyncBar } from '@/components';
+import { TimerStatus } from '@/containers';
 import * as storage from '@/config/storage';
 
 import { HomeContainer, MainContainer } from './styles';
@@ -52,7 +53,7 @@ const Home = () => {
       <HomeContainer>
         <Heading size="xl">Solo Bingo</Heading>
         <MainContainer>
-          <Timer />
+          <TimerStatus />
         </MainContainer>
       </HomeContainer>
       <SyncBar isSynchronizing={!syncedUser} error={syncError} />

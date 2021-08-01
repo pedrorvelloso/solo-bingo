@@ -32,7 +32,3 @@ export const TimerContainer = styled.div<TimeContainerProps>`
       border: 1px solid ${props.theme.colors.success};
     `}
 `;
-
-export const ControllersContainer = styled.div`
-  display: flex;
-`;
