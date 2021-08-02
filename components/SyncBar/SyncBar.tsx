@@ -10,7 +10,7 @@ const SyncBar = ({ isSynchronizing, error }: SyncBarProps) => {
     <SyncBardContainer>
       {isSynchronizing && !error && 'Synchronizing...'}
       {!isSynchronizing && !error && '✨'}
-      {error && '🚨'}
+      {!isSynchronizing && error && '🚨'}
     </SyncBardContainer>
   );
 };

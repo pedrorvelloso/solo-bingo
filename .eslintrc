@@ -3,7 +3,7 @@
     "plugin:react/recommended",
     "airbnb",
     "plugin:@typescript-eslint/recommended",
-    "next", 
+    "next",
     "next/core-web-vitals",
     "plugin:prettier/recommended"
   ],
@@ -25,14 +25,16 @@
     "react-hooks/exhaustive-deps": "warn",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "import/prefer-default-export": "off",
-      "import/extensions": [
-        "error",
-        "ignorePackages",
-        {
-          "ts": "never",
-          "tsx": "never"
-        }
-      ]
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "import/no-anonymous-default-export": "off",
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
   },
   "settings": {
     "import/resolver": {

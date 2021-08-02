@@ -1,6 +1,7 @@
 import { Button, Timer } from '@/components';
+import useTimer from '@/hooks/useTimer';
+
 import { ControllersContainer } from './styles';
-import useTimer from './useTimer';
 
 const TimerStatus = () => {
   const {
