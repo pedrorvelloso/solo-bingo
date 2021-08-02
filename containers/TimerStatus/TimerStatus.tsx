@@ -22,11 +22,13 @@ const TimerStatus = ({ countdown: cd, onCountdownEnd }: TimerStatusProps) => {
     startedAt,
     countdown,
     resume,
+    isResumed,
   } = useTimer({ countdown: cd });
 
   useEffect(() => {
-    if (!countdown && isRunning && onCountdownEnd) onCountdownEnd();
-  }, [countdown, isRunning, onCountdownEnd]);
+    if (!countdown && !isResumed && isRunning && onCountdownEnd)
+      onCountdownEnd();
+  }, [countdown, isResumed, isRunning, onCountdownEnd]);
 
   return (
     <ControllersContainer>
