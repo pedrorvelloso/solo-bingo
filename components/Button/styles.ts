@@ -32,6 +32,7 @@ export const ButtonStyled = styled.button<ButtonStyledProps>`
 
   :hover:enabled {
     background-color: ${(props) => props.theme.colors[props.color]};
+    color: ${(props) => darken(0.41, props.theme.colors[props.color])};
 
     ${(props) =>
       props.filled &&

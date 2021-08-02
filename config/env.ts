@@ -4,4 +4,11 @@ const firebase = {
   projectId: process.env.FIREBASE_PROJECT_ID,
 };
 
-export { firebase };
+const publicEnv = {
+  bingo: {
+    version: process.env.NEXT_PUBLIC_BINGO_VERSION,
+    url: process.env.NEXT_PUBLIC_BINGO_URL,
+  },
+};
+
+export { firebase, publicEnv };

@@ -1,9 +1,15 @@
 import { Button, Timer } from '@/components';
 import useTimer from '@/hooks/useTimer';
+import { useEffect } from 'react';
 
 import { ControllersContainer } from './styles';
 
-const TimerStatus = () => {
+type TimerStatusProps = {
+  countdown: number;
+  onCountdownEnd?: () => void;
+};
+
+const TimerStatus = ({ countdown: cd, onCountdownEnd }: TimerStatusProps) => {
   const {
     seconds,
     minutes,
@@ -15,7 +21,12 @@ const TimerStatus = () => {
     stop,
     startedAt,
     countdown,
-  } = useTimer({ countdown: 15 });
+    resume,
+  } = useTimer({ countdown: cd });
+
+  useEffect(() => {
+    if (!countdown && isRunning && onCountdownEnd) onCountdownEnd();
+  }, [countdown, isRunning, onCountdownEnd]);
 
   return (
     <ControllersContainer>
@@ -39,6 +50,16 @@ const TimerStatus = () => {
           </Button>
           <Button onClick={stop} color="danger" ml="14px" disabled={countdown}>
             Forfeit
+          </Button>
+        </>
+      )}
+      {isFinished && (
+        <>
+          <Button color="warn" onClick={resume}>
+            Resume
+          </Button>
+          <Button color="success" ml="14px">
+            Submit
           </Button>
         </>
       )}

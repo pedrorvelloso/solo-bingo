@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface UseTimerData {
+  count: number;
   deciseconds: string;
   seconds: string;
   minutes: string;
   hours: string;
   start: () => void;
   stop: () => void;
+  resume: () => void;
   isRunning: boolean;
   isFinished: boolean;
   startedAt?: number;
@@ -18,11 +20,12 @@ interface UseTimerProps {
 }
 
 function useTimer({ countdown: cd = 0 }: UseTimerProps): UseTimerData {
+  const [count, setCount] = useState(0);
   const [deciseconds, setDeciseconds] = useState('0');
   const [seconds, setSeconds] = useState(() => {
     // TODO break countdown to minutes if necessary
     if (cd >= 60) return '59';
-    if (cd > 0) return cd.toString();
+    if (cd > 0) return `00${cd}`.slice(-2);
 
     return '00';
   });
@@ -52,6 +55,12 @@ function useTimer({ countdown: cd = 0 }: UseTimerProps): UseTimerData {
     setIsRunning(false);
   }, []);
 
+  const resume = useCallback(() => {
+    isRunningRef.current = true;
+    setIsFinished(false);
+    setIsRunning(true);
+  }, []);
+
   const animate = useCallback(() => {
     if (isRunningRef.current && startedAt) {
       const deltaTime = Date.now() - (startedAt + cd * 1000);
@@ -59,6 +68,8 @@ function useTimer({ countdown: cd = 0 }: UseTimerProps): UseTimerData {
       const negative = deltaTime < 0;
 
       let timer = Math.abs(deltaTime);
+
+      setCount(timer);
 
       setCountdown(negative);
 
@@ -79,17 +90,19 @@ function useTimer({ countdown: cd = 0 }: UseTimerProps): UseTimerData {
   }, [cd, startedAt]);
 
   useEffect(() => {
-    requestRef.current = requestAnimationFrame(animate);
+    if (isRunning) requestRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(requestRef.current);
-  }, [animate]);
+  }, [animate, isRunning]);
 
   return {
+    count,
     deciseconds,
     seconds,
     minutes,
     hours,
     start,
     stop,
+    resume,
     isRunning,
     startedAt,
     countdown,

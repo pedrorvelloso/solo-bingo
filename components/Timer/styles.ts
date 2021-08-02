@@ -7,7 +7,7 @@ type TimeContainerProps = {
 
 export const TimerContainer = styled.div<TimeContainerProps>`
   background-color: ${(props) => darken(0.1, props.theme.background.color)};
-  width: ${(props) => (props.finshed ? '100%' : '40%')};
+  width: 40%;
 
   display: flex;
   align-items: center;

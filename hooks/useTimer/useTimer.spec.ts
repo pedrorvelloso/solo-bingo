@@ -45,7 +45,7 @@ describe('containers > TimerStatus > useTimer', () => {
       jest.advanceTimersByTime(2000);
     });
 
-    expect(result.current.seconds).toBe('1');
+    expect(result.current.seconds).toBe('01');
 
     act(() => result.current.stop());
 
@@ -56,5 +56,26 @@ describe('containers > TimerStatus > useTimer', () => {
     const { result } = renderHook(() => useTimer({ countdown: 60 }));
 
     expect(result.current.seconds).toBe('59');
+  });
+
+  it('should resume timer', () => {
+    const { result } = renderHook(() => useTimer({ countdown: 1 }));
+
+    act(() => {
+      result.current.start();
+      jest.advanceTimersByTime(2000);
+    });
+
+    expect(result.current.seconds).toBe('01');
+
+    act(() => result.current.stop());
+
+    expect(result.current.isFinished).toBeTruthy();
+
+    act(() => {
+      result.current.resume();
+    });
+
+    expect(result.current.isRunning).toBe(true);
   });
 });
